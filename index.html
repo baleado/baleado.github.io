@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Página de demonstração feita pelo Ocean, o assistente do João.">
+<title>Olá, João — feito pelo Ocean</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+<style>
+  :root{
+    --bg:#f4f7fb; --bg2:#e6eef8; --card:#ffffffcc; --text:#0d1b2a; --muted:#4a5a6e;
+    --accent:#0077b6; --accent2:#00b4d8; --border:#d6e2ef; --shadow:0 10px 30px rgba(13,27,42,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#06111c; --bg2:#0b2236; --card:#0f2233cc; --text:#e8f1fa; --muted:#9db2c8;
+      --accent:#48cae4; --accent2:#90e0ef; --border:#1d3a52; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--text);
+    background:radial-gradient(1200px 600px at 10% -10%,var(--bg2),transparent 60%),
+               radial-gradient(900px 500px at 110% 10%,var(--bg2),transparent 60%),var(--bg);
+    min-height:100vh; line-height:1.5;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:28px 20px 48px}
+  header.hero{display:grid;gap:22px;grid-template-columns:1fr;align-items:center;margin:12px 0 30px}
+  @media (min-width:760px){header.hero{grid-template-columns:1.4fr 1fr}}
+  .badge{display:inline-flex;gap:8px;align-items:center;font-size:.85rem;font-weight:600;color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+    padding:6px 12px;border-radius:999px}
+  h1{font-size:clamp(2rem,5.5vw,3.2rem);line-height:1.1;margin:14px 0 10px;letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:1.12rem;color:var(--muted);margin:0;max-width:52ch}
+  .panel{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--border);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+  .clock-label{font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .clock{font-variant-numeric:tabular-nums;font-size:clamp(2.4rem,7vw,3.4rem);font-weight:700;margin:4px 0 2px;letter-spacing:.02em}
+  .date{color:var(--muted);text-transform:capitalize}
+  h2{font-size:1.3rem;margin:34px 0 14px}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow);
+    transition:transform .18s ease,border-color .18s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .icon{font-size:1.7rem;width:48px;height:48px;display:grid;place-items:center;border-radius:14px;
+    background:color-mix(in srgb,var(--accent) 14%,transparent);margin-bottom:10px}
+  .card h3{margin:0 0 6px;font-size:1.05rem}
+  .card p{margin:0;color:var(--muted);font-size:.95rem}
+  .tip{display:grid;gap:14px}
+  .tip-text{font-size:1.1rem;min-height:3.3em;margin:0;transition:opacity .25s ease}
+  .tip-text.fade{opacity:0}
+  button{font:inherit;font-weight:600;border:0;border-radius:14px;padding:14px 20px;cursor:pointer;color:#fff;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent);
+    transition:transform .12s ease}
+  @media (prefers-color-scheme: dark){button{color:#04202e}}
+  button:active{transform:scale(.97)}
+  button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px}
+  .counter{font-size:.85rem;color:var(--muted)}
+  footer{margin-top:40px;text-align:center;color:var(--muted);font-size:.85rem}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <span class="badge">🌊 Página de demonstração</span>
+      <h1>Olá, João — <span class="grad">feito pelo Ocean</span></h1>
+      <p class="lead">Esta página foi escrita e publicada pelo Ocean, o teu assistente, para mostrar como uma ideia passa a algo que podes abrir no tablet em minutos.</p>
+    </div>
+    <div class="panel" aria-live="polite">
+      <div class="clock-label">Hora em Lisboa</div>
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="date" id="date"></div>
+    </div>
+  </header>
+
+  <h2>O que o Ocean faz por ti</h2>
+  <section class="grid">
+    <article class="card"><div class="icon">📬</div><h3>Organizar o email</h3><p>Etiqueta, arquiva promoções e resume o que realmente precisa de ti.</p></article>
+    <article class="card"><div class="icon">🤖</div><h3>Briefing diário de IA</h3><p>As novidades de IA que importam, todas as manhãs, em poucas linhas.</p></article>
+    <article class="card"><div class="icon">💡</div><h3>Ideias diárias</h3><p>Uma ideia para o trabalho e outra para ti, com passos concretos.</p></article>
+    <article class="card"><div class="icon">🥗</div><h3>Ementas e compras</h3><p>Planeia a semana e prepara a lista de compras pronta a usar.</p></article>
+    <article class="card"><div class="icon">🏷️</div><h3>Comparar preços</h3><p>Vê onde cada produto ou serviço sai mais barato antes de decidires.</p></article>
+    <article class="card"><div class="icon">✍️</div><h3>Rascunhos de emails</h3><p>Escreve rascunhos claros e profissionais; tu revês e envias.</p></article>
+  </section>
+
+  <h2>Dica de IA</h2>
+  <section class="panel tip">
+    <p class="tip-text" id="tip">Carrega no botão para veres uma dica.</p>
+    <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <button id="tipBtn" type="button">✨ Nova dica</button>
+      <span class="counter" id="count"></span>
+    </div>
+  </section>
+
+  <footer>Feito pelo Ocean · página estática, sem cookies nem dados pessoais</footer>
+</div>
+<script>
+(function(){
+  var clock=document.getElementById('clock'), date=document.getElementById('date');
+  var tf=new Intl.DateTimeFormat('pt-PT',{timeZone:'Europe/Lisbon',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  var df=new Intl.DateTimeFormat('pt-PT',{timeZone:'Europe/Lisbon',weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  function tick(){var d=new Date();clock.textContent=tf.format(d);date.textContent=df.format(d);}
+  tick(); setInterval(tick,1000);
+
+  var tips=[
+    "Dá contexto: diz à IA quem és, para quem é o resultado e qual o objetivo.",
+    "Pede exemplos concretos — ajudam a IA a acertar no tom e no formato.",
+    "Divide tarefas grandes em passos pequenos e valida cada um.",
+    "Pede à IA que reveja o próprio trabalho e aponte possíveis erros.",
+    "Verifica sempre números, datas e factos importantes na fonte original.",
+    "Indica o formato que queres: tabela, lista, email curto ou resumo de 3 linhas.",
+    "Nunca partilhes palavras-passe ou tokens numa conversa de texto.",
+    "Guarda os prompts que funcionam bem e reutiliza-os como modelos."
+  ];
+  var el=document.getElementById('tip'), btn=document.getElementById('tipBtn'), cnt=document.getElementById('count');
+  var last=-1, n=0;
+  btn.addEventListener('click',function(){
+    var i; do{i=Math.floor(Math.random()*tips.length);}while(i===last&&tips.length>1); last=i;
+    el.classList.add('fade');
+    setTimeout(function(){el.textContent=tips[i];el.classList.remove('fade');},200);
+    n++; cnt.textContent='Dicas vistas: '+n+' de '+tips.length+' possíveis';
+  });
+})();
+</script>
+</body>
+</html>
